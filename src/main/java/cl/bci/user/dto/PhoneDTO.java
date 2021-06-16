@@ -1,27 +1,12 @@
-package cl.bci.user.model;
+package cl.bci.user.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="phone")
-public class Phone {
+public class PhoneDTO {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_phone;
+     private Integer id_phone;
     private String number;
     private String citycode;
     private String contrycode;
-    @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="id")
-    private User user;
+    private UserDTO user;
 
     public String getNumber() {
         return this.number;
@@ -47,11 +32,11 @@ public class Phone {
         this.contrycode = contrycode;
     }     
 
-    public User getUser() {
+    public UserDTO getUser() {
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }      
 

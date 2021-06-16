@@ -1,34 +1,36 @@
-package cl.bci.user.model;
+package cl.bci.user.dto;
 
 import java.sql.Timestamp; 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
-
-@Entity
-@Table(name="user")
-public class User {
+public class UserDTO {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;    
-    private String email;
+
+    private String name;
+
+    @Email
+    @NotEmpty
+    private String email; 
+
+    @Pattern.List({
+        @Pattern(regexp = "[^0123456789]*\\d[^0123456789]*\\d[^0123456789]*", message = "La password debe contener al menos dos digitos."),
+        @Pattern(regexp = "(?=.*[a-z]).+", message = "La password debe contener al menos una letra minuscula."),
+        @Pattern(regexp = "[^[A-Z]]*[A-Z]{1}[^[A-Z]]*", message = "La password debe contener una letra mayuscula."),
+        @Pattern(regexp = "(?=\\S+$).+", message = "La password no debe contener espacios en blanco")
+    })
     private String password;
+
 	private Timestamp created;
     private Timestamp modified;
     private Timestamp last_login;
     private String token;
     private Boolean isactive;
-	@OneToMany(mappedBy="user", fetch = FetchType.EAGER)
-    private List<Phone> phones;
+    private List<PhoneDTO> phones;
 
     public Integer getId() {
         return this.id;
@@ -106,11 +108,11 @@ public class User {
         this.isactive = isactive;
     }
 
-    public List<Phone> getPhones() {
+    public List<PhoneDTO> getPhones() {
         return this.phones;
     }
 
-    public void setPhones(List<Phone> phones) {
+    public void setPhones(List<PhoneDTO> phones) {
         this.phones = phones;
     }
 

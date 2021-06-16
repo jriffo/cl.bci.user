@@ -1,16 +1,18 @@
 package cl.bci.user.service;
 
 import cl.bci.user.dto.RespuestaJSON;
-import cl.bci.user.model.User;
+import cl.bci.user.dto.UserDTO;
 
 public interface UserService {
 
-    RespuestaJSON crearUser(User user);
+    RespuestaJSON crearUser(UserDTO user);
 
     RespuestaJSON getUsers();
 
     RespuestaJSON borraUser(int id);
 
-    RespuestaJSON actualizaUser(User user);
+    RespuestaJSON actualizaUser(UserDTO user);
+
+    RespuestaJSON login(UserDTO user);
     
 }
