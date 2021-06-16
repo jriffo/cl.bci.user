@@ -3,6 +3,7 @@ package cl.bci.user.model;
 import java.sql.Timestamp; 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,7 @@ public class User {
 	private Timestamp created;
     private Timestamp modified;
     private Timestamp last_login;
+    @Column(name="token", columnDefinition="LONGTEXT")
     private String token;
     private Boolean isactive;
 	@OneToMany(mappedBy="user", fetch = FetchType.EAGER)
