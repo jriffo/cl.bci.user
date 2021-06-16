@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         if (u==null) {
             return crearUser(user);
         }
-        return new RespuestaJSON(RespuestaJSON.EstadoType.OK.getRespuestaJSONS(), mensajes.getMessage("ok", null, LocaleContextHolder.getLocale()), u);
+        return new RespuestaJSON(RespuestaJSON.EstadoType.OK.getRespuestaJSONS(), mensajes.getMessage("ok", null, LocaleContextHolder.getLocale()), user);
     }
 
     @Override
