@@ -102,14 +102,13 @@ public class UserServiceImpl implements UserService {
         Optional<User> t = userRepository.findById(user.getId());
         if (t.isPresent()) {
             User u = t.get();
-            u.setEmail(user.getEmail());
-            u.setIsactive(user.getIsactive());
+            u.setEmail(user.getEmail()!=null ? user.getEmail() : u.getEmail());
+            u.setIsactive(user.getIsactive()!=null ? user.getIsactive() : u.getIsactive());
             u.setLast_login(new Timestamp(new Date().getTime()));
             u.setModified(new Timestamp(new Date().getTime()));
             u.setName(user.getName());
-            u.setPassword(user.getPassword());  
-            u.setToken(user.getToken());          
-            return new RespuestaJSON(RespuestaJSON.EstadoType.OK.getRespuestaJSONS(), mensajes.getMessage("user.actualizado", null, LocaleContextHolder.getLocale()), u);
+            u.setPassword(user.getPassword());
+            return new RespuestaJSON(RespuestaJSON.EstadoType.OK.getRespuestaJSONS(), mensajes.getMessage("user.actualizado", null, LocaleContextHolder.getLocale()), user);
         }   
         return new RespuestaJSON(RespuestaJSON.EstadoType.ERROR.getRespuestaJSONS(), mensajes.getMessage("no-encontrado", null, LocaleContextHolder.getLocale()));       
     }

@@ -1,5 +1,7 @@
 package cl.bci.user.controller;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -86,8 +88,7 @@ public class UserController {
 
     @PutMapping("/user")
     public ResponseEntity<RespuestaJSON> actualizaUser(@RequestBody UserDTO user) {
-        try {
-            user.setToken(getJWTToken(user.getName()));
+        try {            
             RespuestaJSON r = userService.actualizaUser(user);
             if (r.getMensaje().equals(mensajes.getMessage("user.no-encontrado", null, LocaleContextHolder.getLocale()))) {
                 return new ResponseEntity<>(r, HttpStatus.NOT_FOUND);

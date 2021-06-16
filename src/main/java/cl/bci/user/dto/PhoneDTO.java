@@ -2,7 +2,7 @@ package cl.bci.user.dto;
 
 public class PhoneDTO {
     
-     private Integer id_phone;
+    private Integer id_phone;
     private String number;
     private String citycode;
     private String contrycode;
