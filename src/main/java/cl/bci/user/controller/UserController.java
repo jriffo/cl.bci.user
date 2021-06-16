@@ -1,7 +1,5 @@
 package cl.bci.user.controller;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +47,7 @@ public class UserController {
     public ResponseEntity<RespuestaJSON> login(@Valid @RequestBody UserDTO user) {
         try {
             user.setToken(getJWTToken(user.getName()));
-            return new ResponseEntity<>(userService.crearUser(user), HttpStatus.CREATED);
+            return new ResponseEntity<>(userService.login(user), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(new RespuestaJSON(RespuestaJSON.EstadoType.ERROR.getRespuestaJSONS(), mensajes.getMessage("user.error", null, LocaleContextHolder.getLocale())), HttpStatus.INTERNAL_SERVER_ERROR);
         }
