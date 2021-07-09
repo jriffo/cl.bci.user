@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
             u.setPassword(user.getPassword());
             return new RespuestaJSON(RespuestaJSON.EstadoType.OK.getRespuestaJSONS(), mensajes.getMessage("user.actualizado", null, LocaleContextHolder.getLocale()), user);
         }   
-        return new RespuestaJSON(RespuestaJSON.EstadoType.ERROR.getRespuestaJSONS(), mensajes.getMessage("no-encontrado", null, LocaleContextHolder.getLocale()));       
+        return new RespuestaJSON(RespuestaJSON.EstadoType.ERROR.getRespuestaJSONS(), mensajes.getMessage("user.no_encontrado", null, LocaleContextHolder.getLocale()));       
     }
     
 }

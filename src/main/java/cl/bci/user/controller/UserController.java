@@ -1,5 +1,7 @@
 package cl.bci.user.controller;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,6 +60,10 @@ public class UserController {
         try {
             return new ResponseEntity<>(userService.crearUser(user), HttpStatus.CREATED);
         } catch (Exception e) {
+            StringWriter sw1 = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw1));
+            String exceptionAsString1 = sw1.toString();
+            System.out.println(exceptionAsString1);
             return new ResponseEntity<>(new RespuestaJSON(RespuestaJSON.EstadoType.ERROR.getRespuestaJSONS(), mensajes.getMessage("user.error", null, LocaleContextHolder.getLocale())), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -88,11 +94,15 @@ public class UserController {
     public ResponseEntity<RespuestaJSON> actualizaUser(@RequestBody UserDTO user) {
         try {            
             RespuestaJSON r = userService.actualizaUser(user);
-            if (r.getMensaje().equals(mensajes.getMessage("user.no-encontrado", null, LocaleContextHolder.getLocale()))) {
+            if (r.getMensaje().equals(mensajes.getMessage("user.no_encontrado", null, LocaleContextHolder.getLocale()))) {
                 return new ResponseEntity<>(r, HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(r, HttpStatus.ACCEPTED); 
         } catch (Exception e) {
+            StringWriter sw1 = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw1));
+            String exceptionAsString1 = sw1.toString();
+            System.out.println(exceptionAsString1);
             return new ResponseEntity<>(new RespuestaJSON(RespuestaJSON.EstadoType.ERROR.getRespuestaJSONS(), mensajes.getMessage("user.error", null, LocaleContextHolder.getLocale())), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
