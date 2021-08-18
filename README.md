@@ -1,5 +1,5 @@
 # cl.bci.user
-Prueba postulación BCI
+Prueba Postulación BCI
 
 gradlew bootRun
 
