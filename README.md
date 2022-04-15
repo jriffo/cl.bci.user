@@ -8,14 +8,16 @@ Prueba Postulación BCI
    ```sh
    git clone https://github.com/jriffotoro/cl.bci.user.git
    ```
-3. Para ejecutar la aplicación
+2. Para ejecutar la aplicación
    ```sh
    .\gradlew bootRun
    ```
-4. Para correr los test
+3. Para correr los test
    ```sh
    .\gradlew test
    ```
+4. Si no puede ejecutar de manera local puede verificar el funcionamiento en:
+   https://bci-test-user.jriffo.repl.co/swagger-ui.html# <br/>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
