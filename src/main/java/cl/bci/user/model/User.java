@@ -17,9 +17,12 @@ import javax.persistence.Table;
 @Table(name="user")
 public class User {
     
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id;*/
+
+    @Id
+    private String id;
     private String name;    
     private String email;
     private String password;
@@ -32,11 +35,12 @@ public class User {
 	@OneToMany(mappedBy="user", fetch = FetchType.EAGER)
     private List<Phone> phones;
 
-    public Integer getId() {
+
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.beans.factory.annotation.Value;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -24,7 +25,9 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
 	private static final String HEADER = "Authorization";
 	private static final String PREFIX = "Bearer ";
-	public static final String SECRET = "mySecretKey";
+
+	@Value("${jwt.secret}")
+	private String secret;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
@@ -48,7 +51,9 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
 	private Claims validateToken(HttpServletRequest request) {
 		String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
-		return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
+		System.out.print("jwtToken: " + jwtToken);
+		request.setAttribute("jwtToken", jwtToken);
+		return Jwts.parser().setSigningKey("bci".getBytes()).parseClaimsJws(jwtToken).getBody();
 	}
 
 	/**

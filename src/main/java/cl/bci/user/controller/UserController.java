@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 import cl.bci.user.dto.RespuestaJSON;
 import cl.bci.user.dto.UserDTO;
 import cl.bci.user.service.UserService;
+import cl.bci.user.exception.BCIException;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -40,25 +43,13 @@ public class UserController {
     @Autowired
     private MessageSource mensajes;
 
-    /*@GetMapping(value = "/hola")
-	public String hola(@RequestParam(value="nombre", defaultValue="BCI") String nombre) {
-		return "Hola " + nombre + "!!";
-	}*/
-
-    @PostMapping("/login")
-    public ResponseEntity<RespuestaJSON> login(@Valid @RequestBody UserDTO user) {
-        try {
-            user.setToken(getJWTToken(user.getName()));
-            return new ResponseEntity<>(userService.login(user), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new RespuestaJSON(RespuestaJSON.EstadoType.ERROR.getRespuestaJSONS(), mensajes.getMessage("user.error", null, LocaleContextHolder.getLocale())), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     @PostMapping("/user")
-    public ResponseEntity<RespuestaJSON> crearUser(@RequestBody UserDTO user) {
+    public ResponseEntity<RespuestaJSON> crearUser(@RequestBody UserDTO user, HttpServletRequest request) {
         try {
+            user.setToken((String)request.getAttribute("jwtToken"));
             return new ResponseEntity<>(userService.crearUser(user), HttpStatus.CREATED);
+        } catch (BCIException e) {
+            return new ResponseEntity<>(new RespuestaJSON(RespuestaJSON.EstadoType.ERROR.getRespuestaJSONS(), e.getMessage()), HttpStatus.ALREADY_REPORTED);
         } catch (Exception e) {
             StringWriter sw1 = new StringWriter();
             e.printStackTrace(new PrintWriter(sw1));
@@ -78,7 +69,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<RespuestaJSON> borraUser(@PathVariable int id) {
+    public ResponseEntity<RespuestaJSON> borraUser(@PathVariable String id) {
         try {
             RespuestaJSON r = userService.borraUser(id);
             if (r.getMensaje().equals(mensajes.getMessage("user.no-encontrado", null, LocaleContextHolder.getLocale()))) {
@@ -86,6 +77,7 @@ public class UserController {
             }
             return new ResponseEntity<>(r, HttpStatus.ACCEPTED); 
         } catch (Exception e) {
+            System.out.print(e.getMessage());
             return new ResponseEntity<>(new RespuestaJSON(RespuestaJSON.EstadoType.ERROR.getRespuestaJSONS(), mensajes.getMessage("user.error", null, LocaleContextHolder.getLocale())), HttpStatus.INTERNAL_SERVER_ERROR);            
         }
     }

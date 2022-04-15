@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 
 public class UserDTO {
     
-    private Integer id;
+    private String id;
 
     private String name;
 
@@ -32,11 +32,11 @@ public class UserDTO {
     private Boolean isactive;
     private List<PhoneDTO> phones;
 
-    public Integer getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
