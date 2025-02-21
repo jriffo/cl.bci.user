@@ -1,22 +1,21 @@
 # cl.bci.user
-Prueba Postulación BCI
-
+BCI Application Test
 
 ### Installation
 
-1. Clonar el repo
+1. Clone the repository
    ```sh
    git clone https://github.com/jriffotoro/cl.bci.user.git
    ```
-2. Para ejecutar la aplicación
+2. To run the application
    ```sh
    .\gradlew bootRun
    ```
-3. Para correr los test
+3. To run the tests
    ```sh
    .\gradlew test
    ```
-4. Si no puede ejecutar de manera local puede verificar el funcionamiento en:
+4. If you cannot run it locally, you can check the functionality at:
    https://bci-test-user.jriffo.repl.co/swagger-ui.html# <br/>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -26,8 +25,7 @@ Prueba Postulación BCI
 ### GET
 http://localhost:8080/swagger-ui.html#/ <br/>
 
-
-## END POINTS
+## ENDPOINTS
 
 ### GET
 `Get All Users` http://localhost:8080//api/user  <br/>
@@ -35,37 +33,36 @@ http://localhost:8080/swagger-ui.html#/ <br/>
 ```sh
 curl --request GET \
 --url http://localhost:8080/api/user \
---header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJzb2Z0dGVrSldUIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNjUwMDQ5NDMwLCJleHAiOjE2NTAwNTAwMzB9.EiFp1gXCWqC_691w_TdkfK1CpVY-93wM2_iOkyW90MFq5K0PyfZ5ua9Ft09ukwiNm-bCkFEdo235FJSc4XwTyA' \
---cookie JSESSIONID=939C0D726F4CF007762D564167C79E27
-  ```
+--header 'Authorization: Bearer TOKEN' \
+--cookie JSESSIONID=SESSION_ID
+```
 
 ### POST
-`Autentication: Para obtener el token se debe usar el user y password que se indica` http://localhost:8080/api/login <br/>
+`Authentication: To obtain the token, use the provided user and password` http://localhost:8080/api/login <br/>
 
 ```sh
-   curl --request POST \
+curl --request POST \
 --url http://localhost:8080/api/login \
 --header 'Content-Type: application/json' \
---cookie JSESSIONID=939C0D726F4CF007762D564167C79E27 \
+--cookie JSESSIONID=SESSION_ID \
 --data '{
 "name": "admin",
-"password": "Bgfdgfdg23dsfds"
+"password": "password"
 }'
-   ```
+```
 
 `Create User` http://localhost:8080/api/user <br/>
 
 ```sh
 curl --request POST \
 --url http://localhost:8080/api/user \
---header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJzb2Z0dGVrSldUIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNjUwMDQ5NDMwLCJleHAiOjE2NTAwNTAwMzB9.EiFp1gXCWqC_691w_TdkfK1CpVY-93wM2_iOkyW90MFq5K0PyfZ5ua9Ft09ukwiNm-bCkFEdo235FJSc4XwTyA' \
+--header 'Authorization: Bearer TOKEN' \
 --header 'Content-Type: application/json' \
---cookie JSESSIONID=939C0D726F4CF007762D564167C79E27 \
+--cookie JSESSIONID=SESSION_ID \
 --data '{
-
-"email": "jriffo.ttoro@gmail.com",
-"name": "José Riffo",
-"password": "Bgfdgfdg23dsfds",
+"email": "email@example.com",
+"name": "John Doe",
+"password": "password",
 "phones": [
 {
 "citycode": "string",
@@ -75,16 +72,16 @@ curl --request POST \
 }
 ]
 }'
-  ```
+```
 
 ### DELETE
 `Delete User` http://localhost:8080/api/user <br/>
 
 ```sh
 curl --request DELETE \
-  --url http://localhost:8080/api/user/81fc694c-b296-4f22-91d7-a7921b450db3 \
-  --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJzb2Z0dGVrSldUIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNjUwMDQ5NDMwLCJleHAiOjE2NTAwNTAwMzB9.EiFp1gXCWqC_691w_TdkfK1CpVY-93wM2_iOkyW90MFq5K0PyfZ5ua9Ft09ukwiNm-bCkFEdo235FJSc4XwTyA' \
-  --cookie JSESSIONID=939C0D726F4CF007762D564167C79E27
+  --url http://localhost:8080/api/user/USER_ID \
+  --header 'Authorization: Bearer TOKEN' \
+  --cookie JSESSIONID=SESSION_ID
 ```
 
 ## Ejemplos
